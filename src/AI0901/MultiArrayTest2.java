@@ -23,8 +23,7 @@ public class MultiArrayTest2 {
             }
 
             System.out.println();
-
-            s.close();
         }
+        s.close();
     }
 }

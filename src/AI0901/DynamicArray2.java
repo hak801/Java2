@@ -12,6 +12,7 @@ public class DynamicArray2 {
             for (int j =0; j < arr[i].length; j++) {
                 System.out.printf("%5d", arr[i][j]);
             }
+
             System.out.println();
         }
     }
