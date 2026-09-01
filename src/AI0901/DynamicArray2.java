@@ -1,6 +1,6 @@
 package AI0901;
 
-//동적배열은 각 행마다 열의 길이를 다르게 할 수 있는 배열이다
+//동적배열은 각 행마다 열의 길이를 다르게 할 수 있는 배열
 public class DynamicArray2 {
     public static void main(String[] args) {
         int[][] arr = {{10, 20, 30, 40}, {50, 20}, {10, 30, 50}};

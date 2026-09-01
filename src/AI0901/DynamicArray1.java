@@ -7,7 +7,7 @@ public class DynamicArray1 {
         int[] colLength = {7, 5, 4};
         int count = 0;
 
-        for (int i = 0; i < arr.length; i++) {// 행의 개수만큼 반복한다
+        for (int i = 0; i < arr.length; i++) {// 행의 개수만큼 반복
             arr[i] = new int[colLength[i]];
         }
 
