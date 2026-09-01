@@ -9,9 +9,9 @@ public class ResultFrequencyRockTest {
         String[] resultArr = new String[10000]; // A, B, 없음
         String comA, comB;
         String[] strings = {"가위", "바위", "보"};
-        int aWinFreq, bWinFreq, noWinFreq; // 이기거나 비긴 횟수
+        int aWinFreq, bWinFreq, noWinFreq;
 
-        Random random = new Random(); // 반복문 밖으로 빼는 게 좋아요
+        Random random = new Random();
 
         for (int i = 0; i < resultArr.length; i++) {
             comA = strings[random.nextInt(strings.length)];

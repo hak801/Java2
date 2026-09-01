@@ -5,8 +5,8 @@ public class MultiArrayTest1 {
         int[][] arr = new int[3][4];
         int count = 0;
 
-        for (int i = 0; i < arr.length; i++) { // 행의 길이 만큼 반복
-            for (int j = 0; j < arr[i].length; j++) { // 열의 길이 만큼 반복
+        for (int i = 0; i < arr.length; i++) { // 행의 길이 만큼 반복한다
+            for (int j = 0; j < arr[i].length; j++) { // 열의 길이 만큼 반복한다
                 arr[i][j] = ++count;
             }
         }
