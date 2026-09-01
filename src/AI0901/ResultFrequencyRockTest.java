@@ -1,0 +1,55 @@
+package AI0901;
+
+import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class ResultFrequencyRockTest {
+    public static void main(String[] args) {
+        String[] resultArr = new String[10000]; // A, B, 없음
+        String comA, comB;
+        String[] strings = {"가위", "바위", "보"};
+        int aWinFreq, bWinFreq, noWinFreq; // 이기거나 비긴 횟수
+
+        Random random = new Random(); // 반복문 밖으로 빼는 게 좋아요
+
+        for (int i = 0; i < resultArr.length; i++) {
+            comA = strings[random.nextInt(strings.length)];
+            comB = strings[random.nextInt(strings.length)];
+
+            if (comA.equals("가위")) {
+                if (comB.equals("가위")) {
+                    resultArr[i] = "없음";
+                } else if (comB.equals("바위")) {
+                    resultArr[i] = "B";
+                } else if (comB.equals("보")) {
+                    resultArr[i] = "A";
+                }
+            } else if (comA.equals("바위")) {
+                if (comB.equals("가위")) {
+                    resultArr[i] = "A";
+                } else if (comB.equals("바위")) {
+                    resultArr[i] = "없음";
+                } else if (comB.equals("보")) {
+                    resultArr[i] = "B";
+                }
+            } else if (comA.equals("보")) {
+                if (comB.equals("가위")) {
+                    resultArr[i] = "B";
+                } else if (comB.equals("바위")) {
+                    resultArr[i] = "A";
+                } else if (comB.equals("보")) {
+                    resultArr[i] = "없음";
+                }
+            }
+        }
+
+        aWinFreq = Collections.frequency(Arrays.asList(resultArr), "A");
+        bWinFreq = Collections.frequency(Arrays.asList(resultArr), "B");
+        noWinFreq = Collections.frequency(Arrays.asList(resultArr), "없음");
+
+        System.out.println("컴퓨터A가 승리한 횟수: " + aWinFreq + "번");
+        System.out.println("컴퓨터B가 승리한 횟수: " + bWinFreq + "번");
+        System.out.println("비긴 횟수: " + noWinFreq + "번");
+    }
+}
