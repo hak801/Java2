@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Relational schema" id="book-relational-schema-en">
+    <mxGraphModel dx="1000" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="lbl-category" value="category" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="90" y="50" width="120" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="category-category_id" value="category_id" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="90" y="80" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="category-category_name" value="category_name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="80" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="category-category_desc" value="category_desc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="80" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lbl-publish" value="publish" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="90" y="180" width="120" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="publish-publish_id" value="publish_id" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="90" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="publish-publish_name" value="publish_name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="publish-phone" value="phone" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="publish-address" value="address" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="publish-name" value="name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lbl-book" value="book" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="90" y="320" width="120" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="book-isbn" value="isbn" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="90" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="book-name" value="name" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="book-author" value="author" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="book-price" value="price" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="book-inventory" value="inventory" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="book-publish_id" value="publish_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="590" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="book-category_id" value="category_id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="690" y="350" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="fk-book-category" value="" style="endArrow=block;endFill=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="book-category_id" target="category-category_id">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="740" y="160" />
+              <mxPoint x="140" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fk-book-publish" value="" style="endArrow=block;endFill=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="book-publish_id" target="publish-publish_id">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="300" />
+              <mxPoint x="140" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="legend-pk" value="PK" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="90" y="450" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-pk-txt" value="underline = primary key" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="160" y="450" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-fk" value="FK" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="450" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-fk-txt" value="blue = foreign key" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="380" y="450" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-arrow" value="" style="endArrow=block;endFill=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="465" as="sourcePoint" />
+            <mxPoint x="560" y="465" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend-arrow-txt" value="FK → referenced PK" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="570" y="450" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
