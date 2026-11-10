@@ -1,4 +1,4 @@
-package ai1028;
+package AI1028;
 
 import center.SetFrame;
 

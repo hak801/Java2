@@ -6,9 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class MenuTest extends JFrame {
@@ -17,6 +20,7 @@ public class MenuTest extends JFrame {
     JFrame frame;
     String[] btnIconFileNames = {"new", "open", "close", "Magenta", "Blue", "White"};
     JButton[] btns = new JButton[6];
+    File currentFile = null; // 현재 열려 있거나 저장된 파일 (없으면 null)
 
     public MenuTest() {
         frame = this;
@@ -40,12 +44,53 @@ public class MenuTest extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
 
-        JMenuItem newMenuItem = new JMenuItem("New"); //textArea의 문자열을 초기화
-        JMenuItem openMenuItem = new JMenuItem("Open"); //JFileChooser
-        JMenuItem closeMenuItem = new JMenuItem("Close"); //System.exit
+        // ===== File 메뉴 =====
+        JMenuItem newMenuItem = new JMenuItem("New");       // textArea의 문자열을 초기화
+        JMenuItem openMenuItem = new JMenuItem("Open");     // JFileChooser로 파일 열기
+        JMenuItem saveMenuItem = new JMenuItem("Save");     // [추가] 현재 파일에 저장 (없으면 Save As)
+        JMenuItem saveAsMenuItem = new JMenuItem("Save As"); // [추가] 다른 이름으로 저장
+        JMenuItem closeMenuItem = new JMenuItem("Close");   // System.exit
+
+        // 단축키 지정
+        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
+        openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK));
+
         fileMenu.add(newMenuItem);
         fileMenu.add(openMenuItem);
+        fileMenu.add(saveMenuItem);
+        fileMenu.add(saveAsMenuItem);
+        fileMenu.addSeparator();
         fileMenu.add(closeMenuItem);
+
+        newMenuItem.addActionListener(fileListener);
+        openMenuItem.addActionListener(fileListener);
+        saveMenuItem.addActionListener(fileListener);
+        saveAsMenuItem.addActionListener(fileListener);
+        closeMenuItem.addActionListener(fileListener);
+
+        // ===== Edit 메뉴 =====
+        JMenuItem cutMenuItem = new JMenuItem("Cut");             // [추가] 잘라내기
+        JMenuItem copyMenuItem = new JMenuItem("Copy");           // [추가] 복사
+        JMenuItem pasteMenuItem = new JMenuItem("Paste");         // [추가] 붙여넣기
+        JMenuItem selectAllMenuItem = new JMenuItem("Select All"); // [추가] 전체 선택
+
+        cutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+        copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+        pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
+        selectAllMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
+
+        editMenu.add(cutMenuItem);
+        editMenu.add(copyMenuItem);
+        editMenu.add(pasteMenuItem);
+        editMenu.add(selectAllMenuItem);
+        editMenu.addSeparator();
+
+        cutMenuItem.addActionListener(editListener);
+        copyMenuItem.addActionListener(editListener);
+        pasteMenuItem.addActionListener(editListener);
+        selectAllMenuItem.addActionListener(editListener);
 
         JMenuItem whiteMenuItem = new JMenuItem("White");
         JMenuItem blueMenuItem = new JMenuItem("Blue");
@@ -58,10 +103,6 @@ public class MenuTest extends JFrame {
         blueMenuItem.addActionListener(backgroundListener);
         magentaMenuItem.addActionListener(backgroundListener);
 
-        newMenuItem.addActionListener(fileListener);
-        openMenuItem.addActionListener(fileListener);
-        closeMenuItem.addActionListener(fileListener);
-
         SetFrame.setFrame(this, "메뉴만들기", 500, 500);
     }
 
@@ -71,7 +112,7 @@ public class MenuTest extends JFrame {
             JButton eBtn = (JButton) e.getSource();
 
             if (eBtn == btns[0]) {
-                textArea.setText("");
+                newFile();
             } else if (eBtn == btns[1]) {
                 openFile();
             } else if (eBtn == btns[2]) {
@@ -91,15 +132,43 @@ public class MenuTest extends JFrame {
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {
                 case "New":
-                    textArea.setText("");
+                    newFile();
                     break;
                 case "Open":
                     openFile();
+                    break;
+                case "Save":
+                    saveFile();
+                    break;
+                case "Save As":
+                    saveFileAs();
                     break;
                 case "Close":
                     System.exit(0);
                     break;
             }
+        }
+    };
+
+    // [추가] Edit 메뉴 항목(잘라내기/복사/붙여넣기/전체 선택) 처리
+    ActionListener editListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (e.getActionCommand()) {
+                case "Cut":
+                    textArea.cut();
+                    break;
+                case "Copy":
+                    textArea.copy();
+                    break;
+                case "Paste":
+                    textArea.paste();
+                    break;
+                case "Select All":
+                    textArea.selectAll();
+                    break;
+            }
+            textArea.requestFocus();
         }
     };
 
@@ -122,12 +191,62 @@ public class MenuTest extends JFrame {
         }
     };
 
+    private void newFile() {
+        textArea.setText("");
+        currentFile = null;
+        setTitle("메뉴만들기");
+    }
+
     private void openFile() {
         int result = fileChooser.showOpenDialog(frame);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             textArea.setText(readFile(selectedFile));
             textArea.setCaretPosition(0);
+            currentFile = selectedFile;
+            setTitle("메뉴만들기 - " + selectedFile.getName());
+        }
+    }
+
+    // [추가] Save: 열려 있는 파일이 있으면 그 파일에 덮어쓰고, 없으면 Save As 실행
+    private void saveFile() {
+        if (currentFile == null) {
+            saveFileAs();
+        } else {
+            writeFile(currentFile);
+        }
+    }
+
+    // [추가] Save As: 저장 대화상자로 파일을 골라 저장
+    private void saveFileAs() {
+        int result = fileChooser.showSaveDialog(frame);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            if (selectedFile.exists()) {
+                int answer = JOptionPane.showConfirmDialog(frame,
+                        selectedFile.getName() + " 파일이 이미 있습니다. 덮어쓰시겠습니까?",
+                        "다른 이름으로 저장", JOptionPane.YES_NO_OPTION);
+                if (answer != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+            if (writeFile(selectedFile)) {
+                currentFile = selectedFile;
+                setTitle("메뉴만들기 - " + selectedFile.getName());
+            }
+        }
+    }
+
+    // [추가] textArea의 내용을 파일에 기록
+    private boolean writeFile(File file) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write(textArea.getText());
+            JOptionPane.showMessageDialog(frame, file.getName() + " 파일이 저장되었습니다.");
+            return true;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(frame, "저장 중 오류가 발생했습니다: " + e.getMessage(),
+                    "오류", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 

@@ -1,4 +1,4 @@
-package ai1013;
+package AI1013;
 
 import center.CenterFrame2;
 

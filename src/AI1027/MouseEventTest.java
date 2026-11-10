@@ -1,30 +1,23 @@
-package ai1027;
+package AI1027;
 
 import center.SetFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MouseEventTest2 extends JFrame {
+public class MouseEventTest extends JFrame {
     JLabel lbl = new JLabel();
 
-    public MouseEventTest2() {
+    public MouseEventTest() {
         JPanel panel = new JPanel();
-        JButton btnRed = new JButton("Red");
-        JButton btnGreen = new JButton("Green");
-        JButton btnBlue = new JButton("Blue");
+        JButton btn = new JButton("마우스 이벤트 연습");
 
-
-        panel.add(btnRed); panel.add(btnGreen); panel.add(btnBlue);
+        panel.add(btn);
         add(panel);
-        lbl.setOpaque(true);
         add("South", lbl);
 
-        btnRed.addMouseListener(btnMouseListener);
-        btnGreen.addMouseListener(btnMouseListener);
-        btnBlue.addMouseListener(btnMouseListener);
+        btn.addMouseListener(btnMouseListener);
 
         SetFrame.setFrame(this, "MouseEvent Programming", 300, 300);
     }
@@ -32,23 +25,8 @@ public class MouseEventTest2 extends JFrame {
     MouseListener btnMouseListener = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            JButton eBtn = (JButton)e.getSource();
-            Color color = null;
             System.out.println("버튼에 마우스가 클릭됨");
             lbl.setText("버튼에 마우스가 클릭됨");
-
-            switch (eBtn.getText()) {
-                case "Red":
-                    color = Color.RED;
-                    break;
-                case "Blue":
-                    color = Color.BLUE;
-                    break;
-                case "Green":
-                    color = Color.GREEN;
-                    break;
-            }
-            lbl.setBackground(color);
         }
 
         @Override
@@ -77,6 +55,6 @@ public class MouseEventTest2 extends JFrame {
     };
 
     public static void main(String[] args) {
-        new MouseEventTest2();
+        new MouseEventTest();
     }
 }

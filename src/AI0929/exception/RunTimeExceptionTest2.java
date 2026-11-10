@@ -1,4 +1,4 @@
-package AI0929;
+package AI0929.exception;
 
 import java.util.Random;
 

@@ -1,7 +1,6 @@
-package AI0929;
+package AI0929.exception;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 

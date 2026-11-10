@@ -1,6 +1,5 @@
-package ai1027;
+package AI1027;
 
-import center.CenterFrame2;
 import center.SetFrame;
 
 import javax.swing.*;

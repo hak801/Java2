@@ -1,4 +1,4 @@
-package ai1027;
+package AI1027;
 
 import javax.swing.*;
 import java.awt.*;

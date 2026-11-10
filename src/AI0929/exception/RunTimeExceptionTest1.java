@@ -1,4 +1,4 @@
-package AI0929;
+package AI0929.exception;
 
 public class RunTimeExceptionTest1 {
     public static void main(String[] args) {
