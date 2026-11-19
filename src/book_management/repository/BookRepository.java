@@ -27,7 +27,8 @@ public class BookRepository {
         String sql = "select isbn, name, author, price, inventory, category_name, publish_name " +
                 "from book b, category c, publish p " +
                 "where b.category_id = c.category_id and b.publish_id = p.publish_id " +
-                "and " + columnName[selectedIndex] + " like ?";
+                "and " + columnName[selectedIndex] + " like ? " +
+                "order by isbn";
         try {
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, "%" + searchWord + "%");
@@ -57,5 +58,44 @@ public class BookRepository {
         }
 
         return bookList;
+    }
+
+    // 도서 추가: 카테고리명/출판사명으로 각각의 id를 찾아서 book 테이블에 insert
+    // 반환값: 추가된 행 수 (실패 시 0)
+    public int insert(Book book) {
+        Connection con = JDBCConnecter.getConnection();
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        if (con == null) {
+            return result;
+        }
+
+        String sql = "insert into book (isbn, name, author, price, inventory, category_id, publish_id) " +
+                "values (?, ?, ?, ?, ?, " +
+                "(select category_id from category where category_name = ?), " +
+                "(select publish_id from publish where publish_name = ?))";
+        try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, book.getIsbn());
+            pstmt.setString(2, book.getName());
+            pstmt.setString(3, book.getAuthor());
+            pstmt.setInt(4, book.getPrice());
+            pstmt.setInt(5, book.getInventory());
+            pstmt.setString(6, book.getCategory_name());
+            pstmt.setString(7, book.getPublish_name());
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("도서 추가 실패: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return result;
     }
 }
